@@ -1,4 +1,4 @@
-export interface GetAllAleaFilters {
+export interface ListFilters {
     isDeleted?: boolean
     includeDeleted?: boolean
 }

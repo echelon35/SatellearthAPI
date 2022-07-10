@@ -1,6 +1,6 @@
 import {Op} from 'sequelize'
 import Alea, { AleaInput, AleaOuput } from '../models/Alea'
-import { FindByName, GetAllAleaFilters } from './types';
+import { FindByName, ListFilters } from './types';
 
 /**
  * Create a new type of [Alea]
@@ -30,7 +30,7 @@ export const create = async (payload: AleaInput): Promise<AleaOuput> => {
  * @param filters 
  * @returns 
  */
-export const getAll = async (filters?: GetAllAleaFilters): Promise<AleaOuput[]> => {
+export const getAll = async (filters?: ListFilters): Promise<AleaOuput[]> => {
     return Alea.findAll({
         where: {
             ...(filters?.isDeleted && {deletedAt: {[Op.not]: null}})
