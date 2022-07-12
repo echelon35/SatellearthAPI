@@ -1,5 +1,5 @@
 import {Op} from 'sequelize'
-import Disaster, { DisasterInput, DisasterOuput } from '../models/Disaster'
+import Disaster, { DisasterInput, DisasterOutput } from '../models/Disaster'
 import { ListFilters } from './types';
 
 /**
@@ -7,7 +7,7 @@ import { ListFilters } from './types';
  * @param payload 
  * @returns 
  */
-export const create = async (payload: DisasterInput): Promise<DisasterOuput> => {
+export const create = async (payload: DisasterInput): Promise<DisasterOutput> => {
     const disaster = await Disaster.create(payload)
     return disaster;
 }
@@ -17,7 +17,7 @@ export const create = async (payload: DisasterInput): Promise<DisasterOuput> => 
  * @param filters 
  * @returns 
  */
-export const getAll = async (filters?: ListFilters): Promise<DisasterOuput[]> => {
+export const getAll = async (filters?: ListFilters): Promise<DisasterOutput[]> => {
     return Disaster.findAll({
         where: {
             ...(filters?.isDeleted && {deletedAt: {[Op.not]: null}})

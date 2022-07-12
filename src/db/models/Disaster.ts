@@ -1,7 +1,8 @@
-import { DataTypes, GeometryDataType, Model, Optional } from 'sequelize'
+import { DataTypes, Model, Optional } from 'sequelize'
 import sequelizeConnection from '../db.config'
 import Alea from './Alea';
 import Source from './Source';
+import Ville from './Ville';
 
 interface DisasterAttributes {
   id: number;
@@ -10,23 +11,23 @@ interface DisasterAttributes {
   point: any,
   idSource: string,
   lienSource: string,
-  nbRessenti: boolean,
+  nbRessenti: number,
   visible: boolean,
   createdAt?: Date;
   updatedAt?: Date;
   deletedAt?: Date;
 }
 export interface DisasterInput extends Optional<DisasterAttributes, 'id'> {}
-export interface DisasterOuput extends Required<DisasterAttributes> {}
+export interface DisasterOutput extends Required<DisasterAttributes> {}
 
 class Disaster extends Model<DisasterAttributes,DisasterInput> implements DisasterAttributes {
     public id!: number;
     public premierReleve!: Date;
     public dernierReleve!: Date;
     public idSource!: string;
-    public point: any;
+    public point!: any;
     public lienSource!: string;
-    public nbRessenti!: boolean;
+    public nbRessenti!: number;
     public visible!: boolean;
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
@@ -49,9 +50,6 @@ Disaster.init({
     point: {
         type: DataTypes.GEOMETRY
     },
-    // sourceId:{
-    //     type: DataTypes.STRING(50)
-    // },
     idSource: {
         type: DataTypes.STRING(20)
     },
@@ -63,13 +61,7 @@ Disaster.init({
     },
     visible: {
         type: DataTypes.BOOLEAN
-    },
-    // villeId:{
-    //     type: DataTypes.INTEGER
-    // },
-    // distance_ville:{
-    //     type: DataTypes.DOUBLE
-    // }
+    }
 },
 {
     timestamps: true,
@@ -83,5 +75,8 @@ Alea.hasOne(Disaster, { sourceKey: 'id' });
 
 Disaster.belongsTo(Source, { targetKey: 'id' });
 Source.hasOne(Disaster, { sourceKey: 'id' });
+
+Disaster.belongsTo(Ville, { targetKey: 'id' });
+Ville.hasOne(Disaster, { sourceKey: 'id' });
 
 export default Disaster;
