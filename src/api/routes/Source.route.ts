@@ -5,15 +5,6 @@ import * as SourceController from '../controllers/Source.controller'
 const SourceRouter = Router()
 
 /**
- * Get [Source] object by its id
- */
-SourceRouter.get(':/id', async (req: Request, res: Response) => {
-    const id = Number(req.params.id)
-    const result = await SourceController.getById(id)
-    return res.status(200).send(result)
-})
-
-/**
  * Update [Source]
  */
 SourceRouter.put('/:id', () => {
@@ -32,6 +23,15 @@ SourceRouter.delete('/:id', () => {
 SourceRouter.post('/', async (req: Request, res: Response) => {
     const payload:CreateSourceContract = req.body
     const result = await SourceController.create(payload).catch(error => { error : res.status(500).send("Une erreur est survenue à la création de la source : "+ error.message) })
+    return res.status(200).send(result)
+})
+
+/**
+ * Get [Source] object by its id
+ */
+ SourceRouter.get('/:id', async (req: Request, res: Response) => {
+    const id = Number(req.params.id)
+    const result = await SourceController.getById(id)
     return res.status(200).send(result)
 })
 

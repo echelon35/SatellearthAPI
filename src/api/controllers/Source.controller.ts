@@ -24,9 +24,7 @@ export const toSource = (source: SourceOutput): SourceDto => {
 export const create = async(payload: CreateSourceContract): Promise<SourceDto> => {
     return toSource(await service.create(payload))
 }
-// export const update = async (id: number, payload: UpdateIngredientDTO): Promise<Ingredient> => {
-//     return mapper.toIngredient(await service.update(id, payload))
-// }
+
 export const getById = async (id: number): Promise<SourceDto | null> => {
     const source = await service.getById(id);
     if(source){
@@ -36,10 +34,7 @@ export const getById = async (id: number): Promise<SourceDto | null> => {
         return null;
     }
 }
-// export const deleteById = async(id: number): Promise<Boolean> => {
-//     const isDeleted = await service.deleteById(id)
-//     return isDeleted
-// }
+
 export const getAll = async(filters: FilterSourceContract): Promise<SourceDto[]> => {
     return (await service.getAll(filters)).map(toSource)
 }
