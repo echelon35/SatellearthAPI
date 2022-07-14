@@ -25,10 +25,35 @@ export const toDisaster = (disaster: DisasterOutput): DisasterDto => {
     }
 }
 
+/**
+ * Create new [Disaster] requested by user
+ * @param payload 
+ * @returns 
+ */
 export const create = async(payload: CreateDisasterContract): Promise<DisasterDto> => {
     return toDisaster(await service.create(payload))
 }
 
+/**
+ * Get [Disaster] requested by user
+ * @param id 
+ * @returns 
+ */
+export const getById = async (id: number): Promise<DisasterDto | null> => {
+    const source = await service.getById(id);
+    if(source){
+        return toDisaster(source);
+    }
+    else{
+        return null;
+    }
+}
+
+/**
+ * Get all [Disaster] requested by user
+ * @param filters 
+ * @returns 
+ */
 export const getAll = async(filters: FilterDisasterContract): Promise<DisasterDto[]> => {
     return (await service.getAll(filters)).map(toDisaster)
 }

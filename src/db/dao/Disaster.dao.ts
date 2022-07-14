@@ -13,6 +13,15 @@ export const create = async (payload: DisasterInput): Promise<DisasterOutput> =>
 }
 
 /**
+ * Get [Disaster] by its id
+ * @param id 
+ * @returns 
+ */
+export const getById = async (id: number): Promise<DisasterOutput | null> => {
+    return Disaster.findByPk(id)
+}
+
+/**
  * Get all [Disaster] objects
  * @param filters 
  * @returns 
