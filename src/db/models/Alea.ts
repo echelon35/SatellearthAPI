@@ -10,6 +10,7 @@ interface AleaAttributes {
   updatedAt?: Date;
   deletedAt?: Date;
 }
+
 export interface AleaInput extends Optional<AleaAttributes, 'id' | 'name' | 'legend'> {}
 export interface AleaOuput extends Required<AleaAttributes> {}
 
