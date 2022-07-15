@@ -17,7 +17,7 @@ interface AleaAttributes {
 //What came from User
 export interface AleaInput extends Optional<AleaAttributes, 'id' | 'name' | 'legend'> {}
 //What give to User
-export interface AleaOutput extends Required<AleaAttributes> {}
+export interface AleaOuput extends Required<AleaAttributes> {}
 
 //Typescript class
 class Alea extends Model<AleaAttributes,AleaInput> implements AleaAttributes {

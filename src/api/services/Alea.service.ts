@@ -11,7 +11,7 @@ import { ListFilters } from "../../db/dao/types"
  * @param payload 
  * @returns 
  */
-export const create = (payload: AleaInput): Promise<AleaOutput> => {
+export const create = (payload: AleaInput): Promise<AleaOuput> => {
     return AleaDao.create(payload)
 }
 
@@ -20,7 +20,7 @@ export const create = (payload: AleaInput): Promise<AleaOutput> => {
  * @param name 
  * @returns 
  */
-export const getByName = (name: string): Promise<AleaOutput | null> => {
+export const getByName = (name: string): Promise<AleaOuput | null> => {
     return AleaDao.getByName(name)
 }
 
@@ -29,6 +29,6 @@ export const getByName = (name: string): Promise<AleaOutput | null> => {
  * @param filters 
  * @returns 
  */
-export const getAll = (filters: ListFilters): Promise<AleaOutput[]> => {
+export const getAll = (filters: ListFilters): Promise<AleaOuput[]> => {
     return AleaDao.getAll(filters)
 }
