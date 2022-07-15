@@ -4,6 +4,10 @@ import Alea from './Alea';
 import Source from './Source';
 import Ville from './Ville';
 
+/**
+ * [Disaster] model on db (by SequelizeORM)
+ */
+
 interface DisasterAttributes {
   id: number;
   premierReleve: Date,
@@ -17,9 +21,12 @@ interface DisasterAttributes {
   updatedAt?: Date;
   deletedAt?: Date;
 }
+//What came from user
 export interface DisasterInput extends Optional<DisasterAttributes, 'id'> {}
+//What give to user
 export interface DisasterOutput extends Required<DisasterAttributes> {}
 
+//Typescript class
 class Disaster extends Model<DisasterAttributes,DisasterInput> implements DisasterAttributes {
     public id!: number;
     public premierReleve!: Date;
@@ -35,6 +42,7 @@ class Disaster extends Model<DisasterAttributes,DisasterInput> implements Disast
 
 }
 
+//Sequelize class
 Disaster.init({
     id: {
         type: DataTypes.INTEGER,
@@ -70,13 +78,23 @@ Disaster.init({
     paranoid: true //Avoid to definitely delete records (property deletedAt)
 })
 
+/**
+ * Associations
+ */
+
+//ONE [Disaster] is of ONE [Alea] type
 Disaster.belongsTo(Alea, { targetKey: 'id' });
-Alea.hasOne(Disaster, { sourceKey: 'id' });
+//ONE [Alea] type has MANY [Disaster]
+Alea.hasMany(Disaster, { sourceKey: 'id' });
 
+//ONE [Disaster] has ONE [Source]
 Disaster.belongsTo(Source, { targetKey: 'id' });
-Source.hasOne(Disaster, { sourceKey: 'id' });
+//ONE [Source] detect MANY [Disaster]
+Source.hasMany(Disaster, { sourceKey: 'id' });
 
+//ONE [Disaster] is near ONE [Ville] --> This association is needed to make a name for the disaster
 Disaster.belongsTo(Ville, { targetKey: 'id' });
-Ville.hasOne(Disaster, { sourceKey: 'id' });
+//ONE [Ville] is near MANY [Disaster]
+Ville.hasMany(Disaster, { sourceKey: 'id' });
 
 export default Disaster;

@@ -3,6 +3,10 @@ import Disaster, { DisasterInput, DisasterOutput } from '../models/Disaster'
 import { ListFilters } from './types';
 
 /**
+ * [Disaster] Data Access from db with SequelizeORM
+ */
+
+/**
  * Create a new [Disaster]
  * @param payload 
  * @returns 

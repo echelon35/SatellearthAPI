@@ -3,6 +3,10 @@ import Alea, { AleaInput, AleaOuput } from '../models/Alea'
 import { FindByName, ListFilters } from './types';
 
 /**
+ * [Alea] Data Access from db with SequelizeORM
+ */
+
+/**
  * Create a new type of [Alea]
  * @param payload 
  * @returns 

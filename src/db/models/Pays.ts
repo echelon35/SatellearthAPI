@@ -2,6 +2,10 @@ import { DataTypes, Model, Optional } from 'sequelize'
 import sequelizeConnection from '../db.config'
 import Continent from './Continent';
 
+/**
+ * [Ville] model on db (by SequelizeORM)
+ */
+
 interface PaysAttributes {
   id: number;
   namefr: string;
@@ -16,9 +20,12 @@ interface PaysAttributes {
   updatedAt?: Date;
   deletedAt?: Date;
 }
+//What came from User
 export interface PaysInput extends Optional<PaysAttributes, 'id' > {}
+//What give to User
 export interface PaysOutput extends Required<PaysAttributes> {}
 
+//TypeScript class
 class Pays extends Model<PaysAttributes,PaysInput> implements PaysAttributes {
     public id!: number;
     public namefr!: string;
@@ -34,6 +41,7 @@ class Pays extends Model<PaysAttributes,PaysInput> implements PaysAttributes {
     public readonly deletedAt!: Date;
 }
 
+//Sequelize class
 Pays.init({
     id: {
         type: DataTypes.INTEGER,
@@ -72,7 +80,13 @@ Pays.init({
     paranoid: false
 })
 
+/**
+ * Associations
+ */
+
+//ONE [Pays] has ONE [Continent]
 Pays.belongsTo(Continent, { targetKey: 'id' });
+//ONE [Continent] has MANY [Pays]
 Continent.hasMany(Pays, { sourceKey: 'id' });
 
 export default Pays;

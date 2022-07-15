@@ -2,6 +2,10 @@ import { DataTypes, Model, Optional } from 'sequelize'
 import sequelizeConnection from '../db.config'
 import Pays from './Pays';
 
+/**
+ * [Ville] model on db (by SequelizeORM)
+ */
+
 interface VilleAttributes {
   id: number;
   namefr: string;

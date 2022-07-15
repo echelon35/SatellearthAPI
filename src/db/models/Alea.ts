@@ -1,6 +1,10 @@
 import { DataTypes, Model, Optional } from 'sequelize'
 import sequelizeConnection from '../db.config'
 
+/**
+ * [Alea] model on db (by SequelizeORM)
+ */
+
 interface AleaAttributes {
   id: number;
   name: string;
@@ -10,10 +14,12 @@ interface AleaAttributes {
   updatedAt?: Date;
   deletedAt?: Date;
 }
-
+//What came from User
 export interface AleaInput extends Optional<AleaAttributes, 'id' | 'name' | 'legend'> {}
+//What give to User
 export interface AleaOuput extends Required<AleaAttributes> {}
 
+//Typescript class
 class Alea extends Model<AleaAttributes,AleaInput> implements AleaAttributes {
     public id!: number;
     public name!: string;
@@ -26,6 +32,7 @@ class Alea extends Model<AleaAttributes,AleaInput> implements AleaAttributes {
 
 }
 
+//Sequelize class
 Alea.init({
     id: {
         type: DataTypes.INTEGER,
