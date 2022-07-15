@@ -1,5 +1,5 @@
 /**
- * Representation of [Disaster] object
+ * API Representation of [Disaster] object
  */
  export interface DisasterDto {
     id: number

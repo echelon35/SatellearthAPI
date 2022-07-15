@@ -1,5 +1,5 @@
 /**
- * Representation of [Source] object
+ * API Representation of [Source] object
  */
 export interface SourceDto {
     id: number

@@ -1,7 +1,7 @@
 /**
- * API Representation of [Alea] object
+ * API Representation of [Continent] object
  */
-export interface AleaDto {
+ export interface AleaDto {
     id: number
     name: string
     legend: string

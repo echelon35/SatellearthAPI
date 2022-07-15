@@ -1,6 +1,10 @@
 import { DataTypes, Model, Optional } from 'sequelize'
 import sequelizeConnection from '../db.config'
 
+/**
+ * [Source] model on db (by SequelizeORM)
+ */
+
 interface SourceAttributes {
   id: number;
   name: string;
@@ -10,9 +14,12 @@ interface SourceAttributes {
   updatedAt?: Date;
   deletedAt?: Date;
 }
+//What came from user
 export interface SourceInput extends Optional<SourceAttributes, 'id' > {}
+//What give to user
 export interface SourceOutput extends Required<SourceAttributes> {}
 
+//Typescript class
 class Source extends Model<SourceAttributes,SourceInput> implements SourceAttributes {
     public id!: number;
     public adresse!: string;
@@ -24,6 +31,7 @@ class Source extends Model<SourceAttributes,SourceInput> implements SourceAttrib
 
 }
 
+//Sequelize class
 Source.init({
     id: {
         type: DataTypes.INTEGER,

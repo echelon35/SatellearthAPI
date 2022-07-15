@@ -1,15 +1,34 @@
-import { AleaInput, AleaOuput } from "../../db/models/Alea"
+import { AleaInput, AleaOutput } from "../../db/models/Alea"
 import * as AleaDao from '../../db/dao/Alea.dao'
-import { FindByName, ListFilters } from "../../db/dao/types"
+import { ListFilters } from "../../db/dao/types"
 
-export const create = (payload: AleaInput): Promise<AleaOuput> => {
+/**
+ * [Alea] service between API and DB
+ */
+
+/**
+ * Ask db to create new [Alea] type
+ * @param payload 
+ * @returns 
+ */
+export const create = (payload: AleaInput): Promise<AleaOutput> => {
     return AleaDao.create(payload)
 }
 
-export const getByName = (name: string): Promise<AleaOuput | null> => {
+/**
+ * Ask db to get [Alea] object by its id
+ * @param name 
+ * @returns 
+ */
+export const getByName = (name: string): Promise<AleaOutput | null> => {
     return AleaDao.getByName(name)
 }
 
-export const getAll = (filters: ListFilters): Promise<AleaOuput[]> => {
+/**
+ * Ask db to get all [Alea] objects
+ * @param filters 
+ * @returns 
+ */
+export const getAll = (filters: ListFilters): Promise<AleaOutput[]> => {
     return AleaDao.getAll(filters)
 }

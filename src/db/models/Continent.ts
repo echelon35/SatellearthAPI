@@ -1,6 +1,10 @@
 import { DataTypes, Model, Optional } from 'sequelize'
 import sequelizeConnection from '../db.config'
 
+/**
+ * [Continent] model on db (by SequelizeORM)
+ */
+
 interface ContinentAttributes {
   id: number;
   namefr: string;
@@ -9,9 +13,12 @@ interface ContinentAttributes {
   updatedAt?: Date;
   deletedAt?: Date;
 }
+//What came from User
 export interface ContinentInput extends Optional<ContinentAttributes, 'id' > {}
+//What give to user
 export interface ContinentOutput extends Required<ContinentAttributes> {}
 
+//Typescript class
 class Continent extends Model<ContinentAttributes,ContinentInput> implements ContinentAttributes {
     public id!: number;
     public namefr!: string;
@@ -21,6 +28,7 @@ class Continent extends Model<ContinentAttributes,ContinentInput> implements Con
     public readonly deletedAt!: Date;
 }
 
+//Sequelize class
 Continent.init({
     id: {
         type: DataTypes.INTEGER,

@@ -3,6 +3,10 @@ import * as DisasterDao from '../../db/dao/Disaster.dao'
 import { DisasterInput, DisasterOutput } from "../../db/models/Disaster"
 
 /**
+ * [Disaster] service between API and DB
+ */
+
+/**
  * Create new [Disaster] entity
  * @param payload 
  * @returns 
