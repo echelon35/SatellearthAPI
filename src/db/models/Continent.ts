@@ -44,6 +44,7 @@ Continent.init({
 },
 {
     timestamps: true,
+    // //!\ BE CAREFUL -> table name is plural by default, sometimes, you don't want it (ex:Child,Glass...)
     tableName: "Continents",
     sequelize: sequelizeConnection,
     paranoid: true //Avoid to definitely delete records (property deletedAt)
