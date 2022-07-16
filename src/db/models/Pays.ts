@@ -1,9 +1,8 @@
-import { DataTypes, Model, Optional } from 'sequelize'
-import sequelizeConnection from '../db.config'
-import Continent from './Continent';
-
+import { DataTypes,Model, Optional } from "sequelize/types";
+import sequelizeConnection from "../db.config";
+import Continent from "./Continent";
 /**
- * [Ville] model on db (by SequelizeORM)
+ * [Pays] model on db (by SequelizeORM)
  */
 
 interface PaysAttributes {
@@ -21,11 +20,11 @@ interface PaysAttributes {
   deletedAt?: Date;
 }
 //What came from User
-export interface PaysInput extends Optional<PaysAttributes, 'id' > {}
+export interface PaysInput extends Optional<PaysAttributes, 'id'> {}
 //What give to User
 export interface PaysOutput extends Required<PaysAttributes> {}
 
-//TypeScript class
+//Typescript class
 class Pays extends Model<PaysAttributes,PaysInput> implements PaysAttributes {
     public id!: number;
     public namefr!: string;
@@ -39,6 +38,7 @@ class Pays extends Model<PaysAttributes,PaysInput> implements PaysAttributes {
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
     public readonly deletedAt!: Date;
+
 }
 
 //Sequelize class
@@ -77,16 +77,16 @@ Pays.init({
     timestamps: true,
     tableName: "Pays",
     sequelize: sequelizeConnection,
-    paranoid: false
+    paranoid: true //Avoid to definitely delete records (property deletedAt)
 })
 
 /**
- * Associations
+ * Here is the associations with [Pays]
  */
 
-//ONE [Pays] has ONE [Continent]
-Pays.belongsTo(Continent, { targetKey: 'id' });
+//ONE [Pays] belongs to ONE [Continent]
+Pays.belongsTo(Continent, { foreignKey: 'continentId' });
 //ONE [Continent] has MANY [Pays]
-Continent.hasMany(Pays, { sourceKey: 'id' });
+Continent.hasMany(Pays, { foreignKey: 'continentId' });
 
 export default Pays;
