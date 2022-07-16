@@ -1,12 +1,11 @@
 /**
  * API Representation of [Continent] object
  */
- export interface AleaDto {
+export interface ContinentDto {
     id: number
-    name: string
-    legend: string
-    disponible: boolean
+    namefr: string;
+    nameus: string;
     createdAt: Date
     updatedAt: Date
     deletedAt?: Date 
-  }
+}
