@@ -7,6 +7,7 @@ dbInit();
 
 const port = process.env.LISTENING_PORT;
 
+//Access application
 export const get = () => {
     const app: Application = express()
 
