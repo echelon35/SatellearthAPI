@@ -1,6 +1,7 @@
 import { ContinentOutput } from "../../db/models/Continent"
 import { CreateContinentContract, FilterContinentContract, UpdateContinentContract } from "../contracts/Continent.contract"
 import { ContinentDto } from "../dto/Continent.dto"
+import { CountDto, toCount } from "../dto/Count.dto"
 import * as service from '../services/Continent.service'
 
 /**
@@ -72,8 +73,8 @@ export const getAll = async(filters: FilterContinentContract): Promise<Continent
  * @param filters 
  * @returns 
  */
-export const countAll = async(filters: FilterContinentContract): Promise<number> => {
-    return (await service.countAll(filters))
+export const countAll = async(filters: FilterContinentContract): Promise<CountDto> => {
+    return (toCount(await service.countAll(filters)))
 }
 
 /**

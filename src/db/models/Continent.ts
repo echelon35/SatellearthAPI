@@ -1,4 +1,4 @@
-import { DataTypes,Model, Optional } from "sequelize/types";
+import { DataTypes, Optional, Model } from "sequelize";
 import sequelizeConnection from "../db.config";
 /**
  * [Continent] model on db (by SequelizeORM)
