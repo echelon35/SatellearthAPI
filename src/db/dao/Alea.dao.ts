@@ -1,6 +1,6 @@
 import {Op} from 'sequelize'
 import Alea, { AleaInput, AleaOuput } from '../models/Alea'
-import { FindByName, ListFilters } from './types';
+import { ListFilters } from './types';
 
 /**
  * [Alea] Data Access from db with SequelizeORM

@@ -1,4 +1,4 @@
-import { FindByName, ListFilters } from "../../db/dao/types"
+import { ListFilters } from "../../db/dao/types"
 import * as DisasterDao from '../../db/dao/Disaster.dao'
 import { DisasterInput, DisasterOutput } from "../../db/models/Disaster"
 
