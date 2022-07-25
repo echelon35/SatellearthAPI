@@ -1,16 +1,9 @@
-import { agent as _request } from "supertest"
-import {get as getApplication} from '../../server'
-import dbInit from "../db/init"
-
-export const request = _request(getApplication())
+import { request } from ".";
 import Continent, { ContinentOutput } from "../db/models/Continent";
-
 
 describe('Continent routes', () => {
     let continentId: number
     let continent: ContinentOutput
-
-    dbInit();
 
     //What to do before tests
     beforeAll(async () => {
