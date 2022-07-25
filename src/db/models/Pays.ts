@@ -1,4 +1,4 @@
-import { DataTypes,Model, Optional } from "sequelize/types";
+import { DataTypes,Model, Optional } from "sequelize";
 import sequelizeConnection from "../db.config";
 import Continent from "./Continent";
 /**
@@ -67,7 +67,8 @@ Pays.init({
         type: DataTypes.DOUBLE
     },
     geom: {
-        type: DataTypes.GEOMETRY
+        type: DataTypes.GEOMETRY,
+        allowNull: false
     },
     wikilink: {
         type: DataTypes.STRING

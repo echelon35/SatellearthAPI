@@ -12,6 +12,17 @@ import { ListFilters } from './types';
  * @returns [Pays] n°Id
  */
 export const create = async (payload: PaysInput): Promise<PaysOutput> => {
+    const payloadForCreation = {
+        namefr: payload.namefr,
+        nameus: payload.nameus,
+        trigramme: payload.trigramme,
+        iso3166: payload.iso3166,
+        population: payload.population,
+        superficie: payload.superficie,
+        geom: Pays.sequelize?.fn('ST_GeomFromGeoJSON',Pays.sequelize?.fn('ST_GeomFromGeoJSON',payload.geom)),
+        wikilink: payload.wikilink
+    }
+    // console.log(payloadForCreation);
     const createdPays = await Pays.create(payload)
     return createdPays;
 }

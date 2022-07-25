@@ -1,5 +1,6 @@
 import { PaysOutput } from "../../db/models/Pays"
 import { CreatePaysContract, FilterPaysContract, UpdatePaysContract } from "../contracts/Pays.contract"
+import { CountDto, toCount } from "../dto/Count.dto"
 import { PaysDto } from "../dto/Pays.dto"
 import * as service from '../services/Pays.service'
 
@@ -78,8 +79,8 @@ export const getAll = async(filters: FilterPaysContract): Promise<PaysDto[]> => 
  * @param filters 
  * @returns 
  */
-export const countAll = async(filters: FilterPaysContract): Promise<number> => {
-    return (await service.countAll(filters))
+ export const countAll = async(filters: FilterPaysContract): Promise<CountDto> => {
+    return (toCount(await service.countAll(filters)))
 }
 
 /**

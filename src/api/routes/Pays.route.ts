@@ -1,6 +1,7 @@
 import {  Router, Request,Response } from 'express'
 import { CreatePaysContract, FilterPaysContract } from '../contracts/Pays.contract'
 import * as PaysController from '../controllers/Pays.controller'
+import { toError404, toError500 } from '../dto/Error.dto'
 
 const PaysRouter = Router()
 
@@ -9,8 +10,13 @@ const PaysRouter = Router()
  */
  PaysRouter.post('/', async (req: Request, res: Response) => {
     const payload:CreatePaysContract = req.body
-    const result = await PaysController.create(payload).catch(error => { error : res.status(500).send("Une erreur est survenue à la création de la source : "+ error.message) })
-    return res.status(200).send(result)
+    await PaysController.create(payload)
+    .then((result) => {
+        return res.contentType('json').status(200).send(result)
+    })
+    .catch(error => {
+        return res.status(500).send(toError500(error))
+    })
 })
 
 /**
@@ -18,8 +24,13 @@ const PaysRouter = Router()
  */
 PaysRouter.put('/:id', async (req: Request, res: Response) => {
     const id = Number(req.params.id)
-    const result = await PaysController.updateById(id,req.body)
-    return res.status(200).send(result)
+    await PaysController.updateById(id,req.body)
+    .then((result) => {
+        return res.contentType('json').status(200).send(result)
+    })
+    .catch(error => {
+        return res.status(500).send(toError500(error))
+    })
 })
 
 /**
@@ -27,8 +38,28 @@ PaysRouter.put('/:id', async (req: Request, res: Response) => {
  */
 PaysRouter.delete('/:id', async (req: Request, res: Response) => {
     const id = Number(req.params.id)
-    const result = await PaysController.deleteById(id)
-    return res.status(200).send(result)
+    await PaysController.deleteById(id)
+    .then((result) => {
+        return res.contentType('json').status(200).send(result)
+    })
+    .catch(error => {
+        return res.status(500).send(toError500(error))
+    })
+})
+
+
+/**
+ * Count all [Pays] objects
+ */
+ PaysRouter.get('/count', async (req: Request, res: Response) => {
+    const filters:FilterPaysContract = req.query
+    await PaysController.countAll(filters)
+    .then((result) => {
+        return res.contentType('json').status(200).send(result)
+    })
+    .catch(error => {
+        return res.status(500).send(toError500(error))
+    })
 })
 
 /**
@@ -36,8 +67,18 @@ PaysRouter.delete('/:id', async (req: Request, res: Response) => {
  */
  PaysRouter.get('/:id', async (req: Request, res: Response) => {
     const id = Number(req.params.id)
-    const result = await PaysController.getById(id)
-    return res.status(200).send(result)
+    await PaysController.getById(id)
+    .then((result) => {
+        if(result){
+            return res.contentType('json').status(200).send(result)
+        }
+        else{
+            return res.contentType('json').status(404).send(toError404(`Pays n°${id}`))
+        }
+    })
+    .catch(error => {
+        return res.status(500).send(toError500(error))
+    })
 })
 
 /**
@@ -45,17 +86,13 @@ PaysRouter.delete('/:id', async (req: Request, res: Response) => {
  */
  PaysRouter.get('/', async (req: Request, res: Response) => {
     const filters:FilterPaysContract = req.query
-    const results = await PaysController.getAll(filters)
-    return res.status(200).send(results)
-})
-
-/**
- * Count all [Pays] objects
- */
- PaysRouter.get('/count', async (req: Request, res: Response) => {
-    const filters:FilterPaysContract = req.query
-    const results = await PaysController.countAll(filters)
-    return res.status(200).send(results)
+    await PaysController.getAll(filters)
+    .then((result) => {
+        return res.contentType('json').status(200).send(result)
+    })
+    .catch(error => {
+        return res.status(500).send(toError500(error))
+    })
 })
 
 export default PaysRouter

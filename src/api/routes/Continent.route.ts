@@ -10,7 +10,6 @@ const ContinentRouter = Router()
  ContinentRouter.get('/count', async (req: Request, res: Response) => {
     const filters:FilterContinentContract = req.query
     const results = await ContinentController.countAll(filters)
-    console.log(results);
     return res.contentType('json').status(200).send(results)
 })
 
