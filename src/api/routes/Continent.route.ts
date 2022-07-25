@@ -1,25 +1,36 @@
 import {  Router, Request,Response } from 'express'
 import { CreateContinentContract, FilterContinentContract, UpdateContinentContract } from '../contracts/Continent.contract'
 import * as ContinentController from '../controllers/Continent.controller'
+import { toError500 } from '../dto/Error.dto'
 
 const ContinentRouter = Router()
 
 /**
  * Count all [Continent] objects
  */
- ContinentRouter.get('/count', async (req: Request, res: Response) => {
+ContinentRouter.get('/count', async (req: Request, res: Response) => {
     const filters:FilterContinentContract = req.query
-    const results = await ContinentController.countAll(filters)
-    return res.contentType('json').status(200).send(results)
+    await ContinentController.countAll(filters)
+    .then((result) => {
+        return res.contentType('json').status(200).send(result)
+    })
+    .catch(error => {
+        return res.status(500).send(toError500(error))
+    })
 })
 
 /**
  * Create new [Continent]
  */
- ContinentRouter.post('/', async (req: Request, res: Response) => {
+ContinentRouter.post('/', async (req: Request, res: Response) => {
     const payload:CreateContinentContract = req.body
-    const result = await ContinentController.create(payload).catch(error => { error : res.status(500).send("Une erreur est survenue à la création de la source : "+ error.message) })
-    return res.contentType('json').status(200).send(result)
+    await ContinentController.create(payload)
+    .then((result) => {
+        return res.contentType('json').status(200).send(result)
+    })
+    .catch(error => {
+        return res.contentType('json').status(500).send(toError500(error))
+    })
 })
 
 /**
@@ -28,8 +39,13 @@ const ContinentRouter = Router()
 ContinentRouter.put('/:id', async (req: Request, res: Response) => {
     const id = Number(req.params.id)
     const payload:UpdateContinentContract = req.body
-    const result = await ContinentController.updateById(id,payload)
-    return res.contentType('json').status(200).send(result)
+    await ContinentController.updateById(id,payload)
+    .then((result) => {
+        return res.contentType('json').status(200).send(result)
+    })
+    .catch(error => {
+        return res.status(500).send(toError500(error))
+    })
 })
 
 /**
@@ -37,26 +53,41 @@ ContinentRouter.put('/:id', async (req: Request, res: Response) => {
  */
 ContinentRouter.delete('/:id', async (req: Request, res: Response) => {
     const id = Number(req.params.id)
-    const result = await ContinentController.deleteById(id)
-    return res.contentType('json').status(200).send(result)
+    await ContinentController.deleteById(id)
+    .then((result) => {
+        return res.contentType('json').status(200).send(result)
+    })
+    .catch(error => {
+        return res.status(500).send(toError500(error))
+    })
 })
 
 /**
  * Get [Continent] of id specified
  */
- ContinentRouter.get('/:id', async (req: Request, res: Response) => {
+ContinentRouter.get('/:id', async (req: Request, res: Response) => {
     const id = Number(req.params.id)
-    const result = await ContinentController.getById(id)
-    return res.contentType('json').status(200).send(result)
+    await ContinentController.getById(id)
+    .then((result) => {
+        return res.contentType('json').status(200).send(result)
+    })
+    .catch(error => {
+        return res.status(500).send(toError500(error))
+    })
 })
 
 /**
  * Get all [Continent] objects
  */
- ContinentRouter.get('/', async (req: Request, res: Response) => {
+ContinentRouter.get('/', async (req: Request, res: Response) => {
     const filters:FilterContinentContract = req.query
-    const results = await ContinentController.getAll(filters)
-    return res.contentType('json').status(200).send(results)
+    await ContinentController.getAll(filters)
+    .then((result) => {
+        return res.contentType('json').status(200).send(result)
+    })
+    .catch(error => {
+        return res.status(500).send(toError500(error))
+    })
 })
 
 export default ContinentRouter
